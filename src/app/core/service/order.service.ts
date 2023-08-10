@@ -1,15 +1,17 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { MealDTO } from '../model/dto/meal-dto';
+import { BaseResponse } from '../model/response/base-response';
+import { Order } from '../model/order';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrderService {
   baseUrl = environment.baseUrl + "/orders"
-  dataChange = new BehaviorSubject<string>("")
+  dataChange = new BehaviorSubject<Order[]>([])
 
   constructor(private httpClient: HttpClient) { }
 
@@ -24,7 +26,18 @@ export class OrderService {
    * getOrders
    */
   public getOrders(forDay: string) {
-    return this.httpClient.get(this.baseUrl + "/all", { params: { "forDay": forDay } })
+    this.httpClient.get(this.baseUrl + "/all", { params: { "forDay": forDay } }).subscribe({
+      next: (resp) => {
+        const baseResponse = resp as BaseResponse<Order[]>
+
+        this.dataChange.next(baseResponse.data)
+      },
+      error: (err: HttpErrorResponse) => {
+        console.error(err.name + " " + err.message);
+      }
+    })
+
+    return this.dataChange.asObservable()
   }
 
   public getUserOrders(forDay: string) {

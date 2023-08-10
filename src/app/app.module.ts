@@ -17,11 +17,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material-module';
 import { HeaderComponent } from './shared/components/header/header.component';
+import { FilterPipe } from './core/pipe/filter.pipe';
 
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent
+    HeaderComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,

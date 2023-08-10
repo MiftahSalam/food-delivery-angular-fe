@@ -1,5 +1,13 @@
 <div>
   <app-header></app-header>
+  <!-- todo flash message -->
+  <div *ngIf="isLoggedIn()" style="align-items: center;">
+    <!-- <div>fire base messaging</div> -->
+  </div>
+  <div *ngIf="isLoggedIn() && chosenOne && currentUserOrders && haveUnpaidOrder && isChosenRole()" class="alert alert-info" style="align-items: center;">
+    <span>{{chosenOne.name}} {{chosenOne.lastName}} is chosen to collect money for lunch</span><br>
+    <span>Please find him and give him {{orderSum}} USD of what you have ordered</span>
+  </div>
   <div style="align-items: center;">
     <router-outlet></router-outlet>
   </div>
