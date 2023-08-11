@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { DailyMenuServiceService } from './daily-menu.service';
+import { DailyMenuService } from './daily-menu.service';
 
-describe('DailyMenuServiceService', () => {
-  let service: DailyMenuServiceService;
+describe('DailyMenuService', () => {
+  let service: DailyMenuService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(DailyMenuServiceService);
+    service = TestBed.inject(DailyMenuService);
   });
 
   it('should be created', () => {

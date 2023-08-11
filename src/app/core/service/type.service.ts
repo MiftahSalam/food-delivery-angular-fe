@@ -8,7 +8,7 @@ import { BaseResponse } from '../model/response/base-response';
 @Injectable({
   providedIn: 'root'
 })
-export class TypeServiceService {
+export class TypeService {
   baseUrl = environment.baseUrl + "/types"
   dataChange: BehaviorSubject<Type[] | null> = new BehaviorSubject<Type[] | null>(null)
   dataChangeRegular: BehaviorSubject<Type[] | null> = new BehaviorSubject<Type[] | null>(null)

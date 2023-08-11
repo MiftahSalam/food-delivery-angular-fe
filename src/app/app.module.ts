@@ -18,12 +18,16 @@ import { HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material-module';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FilterPipe } from './core/pipe/filter.pipe';
+import { HomeComponent } from './pages/home/home/home.component';
+import { ModalComponent } from './shared/components/modal/modal.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     FilterPipe,
+    HomeComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

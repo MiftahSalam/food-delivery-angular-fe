@@ -4,14 +4,13 @@ import { environment } from 'src/environments/environment';
 import { DailyMenu } from '../model/daily-menu';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { BaseResponse } from '../model/response/base-response';
-import { WeeklyMenu } from '../model/weekly-menu';
 import { WeeklyMenuWithIds } from '../model/weekly-menu-with-ids';
 import { AddDailyMenuDTO } from '../model/dto/add-daily-menu-dto';
 
 @Injectable({
   providedIn: 'root'
 })
-export class DailyMenuServiceService {
+export class DailyMenuService {
   baseUrl = environment.baseUrl + "/daily-menu"
   dataChange = new BehaviorSubject<DailyMenu[] | null>(null)
   dataChangeMenu = new BehaviorSubject<DailyMenu | null>(null)
