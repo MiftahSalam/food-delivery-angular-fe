@@ -20,6 +20,7 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { FilterPipe } from './core/pipe/filter.pipe';
 import { HomeComponent } from './pages/home/home/home.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
+import { RegisterComponent } from './pages/auth/register/register/register.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { ModalComponent } from './shared/components/modal/modal.component';
     FilterPipe,
     HomeComponent,
     ModalComponent,
+    RegisterComponent,
   ],
   imports: [
     BrowserModule,
