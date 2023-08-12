@@ -11,9 +11,9 @@ import { UserService } from 'src/app/core/service/user.service';
 })
 export class HeaderComponent implements OnInit {
   user = {} as UserDTO;
-  
+
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {
-    
+
   }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class HeaderComponent implements OnInit {
         if (this.isLoggedIn()) {
           this.userService.getUser(this.authService.currentUserSubject.value?.email || "").subscribe(user => {
             if (user) {
-              this.user = user              
+              this.user = user
             }
           })
         }
@@ -44,6 +44,6 @@ export class HeaderComponent implements OnInit {
 
   onLogout() {
     this.authService.logout()
-    this.router.navigate(["/login"])
+    this.router.navigate(["/auth/login"])
   }
 }

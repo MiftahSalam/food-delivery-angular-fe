@@ -5,7 +5,7 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="#navbarNav">
+        <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav mr-auto">
                 <li *ngIf="isLoggedIn()" role="presentation" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">
@@ -89,15 +89,15 @@
                 <li *ngIf="!isLoggedIn()" role="presentation" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">
                     <a data-toggle="tooltip" data-placement="top" title="Register" class="nav-link"
-                        [routerLink]="['/register']">Register</a>
+                        [routerLink]="['/auth/register']">Register</a>
                 </li>
                 <li *ngIf="!isLoggedIn()" role="presentation" routerLinkActive="active"
                     [routerLinkActiveOptions]="{exact: true}">
                     <a data-toggle="tooltip" data-placement="top" title="Login" class="nav-link"
-                        [routerLink]="['/login']">Login</a>
+                        [routerLink]="['/auth/login']">Login</a>
                 </li>
                 <li *ngIf="isLoggedIn()" role="presentation" id="logedAs">
-                    Logged in as&nbsp; <a [routerLink]="['/profile']">{{user.name}} {{user.lastName}} (Role: <span
+                    Logged in as&nbsp; <a [routerLink]="['/user/profile']">{{user.name}} {{user.lastName}} (Role: <span
                             *ngIf="isAdmin()">Admin</span>
                         <span *ngIf="isChosen()">Chosen one</span><span *ngIf="!isAdmin() && !isChosen()">Regular
                             user</span>)</a>

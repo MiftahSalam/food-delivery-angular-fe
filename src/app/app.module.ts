@@ -20,7 +20,12 @@ import { HeaderComponent } from './shared/components/header/header.component';
 import { FilterPipe } from './core/pipe/filter.pipe';
 import { HomeComponent } from './pages/home/home/home.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
-import { RegisterComponent } from './pages/auth/register/register/register.component';
+import { RegisterComponent } from './pages/auth/register/register.component';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
+
+const matSnackBarDefaultConfig: MatSnackBarConfig = {
+  verticalPosition: 'top'
+}
 
 @NgModule({
   declarations: [
@@ -54,11 +59,17 @@ import { RegisterComponent } from './pages/auth/register/register/register.compo
     MatMomentDateModule,
     MatNativeDateModule,
     MatFormFieldModule,
+    MatSnackBarModule,
     HttpClientModule,
     FormsModule,
     MaterialModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
+      useValue: matSnackBarDefaultConfig
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

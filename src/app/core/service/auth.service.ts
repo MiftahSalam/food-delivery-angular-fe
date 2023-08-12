@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, map } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpResponse, HttpStatusCode } from '@angular/common/http';
 import { BaseResponse } from '../model/response/base-response';
 import { UserRegDTO } from '../model/dto/user-reg-dto';
 import { Router } from '@angular/router';
@@ -70,14 +70,19 @@ export class AuthService {
     }))
   }
 
-  reserPassword(email: string) {
-    return this.httpClient.post(this.baseUrl + "/auth/resetPassword", email).pipe(map(resp => {
-      const baseResponse = resp as BaseResponse<string>
-      if (baseResponse.data == null) {
-        return baseResponse.message
-      } else {
-        return baseResponse.data
+  resetPassword(email: string) {
+    return this.httpClient.post<HttpResponse<BaseResponse<string>>>(this.baseUrl + "/auth/resetPassword", email).pipe(map(resp => {
+      const baseResponse = resp.body as BaseResponse<string>
+      if (resp.status !== HttpStatusCode.Created && resp.status !== HttpStatusCode.Ok) {
+        if (baseResponse) {
+          throwError(() => new Error(baseResponse.message))
+        } else {
+          throwError(() => new Error("Error occurred with error: " + resp.statusText))
+          return
+        }
       }
+
+      return baseResponse.data
     }))
   }
 
@@ -87,7 +92,29 @@ export class AuthService {
   }
 
   register(user: UserRegDTO) {
-    return this.httpClient.post(this.baseUrl + "/auth/register", user)
+    return this.httpClient.post(
+      this.baseUrl + "/auth/register",
+      user, { observe: 'response', responseType: 'json' })
+      .pipe(
+        map((resp) => {
+          console.log(resp);
+
+          const baseResponse = resp.body as BaseResponse<string>
+          if (resp.status !== HttpStatusCode.Created && resp.status !== HttpStatusCode.Ok) {
+            if (baseResponse) {
+              throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+            } else {
+              throwError(() => new Error("Error occurred with error: " + resp.statusText))
+            }
+          }
+
+          return baseResponse.data
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log(err.message)
+          return throwError(() => new Error("Error occurred with error: " + err.error.message))
+        })
+      )
   }
 
   sendToken(token: string) {
