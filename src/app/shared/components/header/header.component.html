@@ -16,13 +16,13 @@
                 <li *ngIf="isLoggedIn() && isAdmin()" role="presentation" >
                     <a data-toggle="tooltip" data-placement="top" title="Update Type" class="nav-link"
                     routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/types']" href="#">Type Update</a>
+                    [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/meal/type']" href="#">Type Update</a>
                 </li>
 
                 <li *ngIf="isAdmin()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Update meal" class="nav-link"
                     routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/meals']">Meal Update</a>
+                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/meal']">Meal Update</a>
                 </li>
 
                 <li *ngIf="!isAdmin() && isLoggedIn()" class="nav-item dropdown" role="presentation"
