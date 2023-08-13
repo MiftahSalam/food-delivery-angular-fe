@@ -55,8 +55,12 @@ export class AuthService {
   }
 
   login(email: string, password: string) {
-    return this.httpClient.post(this.baseUrl + "/auth/login", { email, password }).pipe(map(resp => {
-      const baseResponse = resp as BaseResponse<User>
+    return this.httpClient.post(
+      this.baseUrl + "/auth/login",
+      { email, password },
+      { observe: 'response', responseType: 'json' }
+    ).pipe(map(resp => {
+      const baseResponse = resp.body as BaseResponse<User>
       if (baseResponse.data == null) {
         localStorage.removeItem('currentUser')
         return null
@@ -118,9 +122,9 @@ export class AuthService {
   }
 
   sendToken(token: string) {
-    this.httpClient.post(this.baseUrl + "/confirmAccount", null, { params: { "token": token } }).subscribe({
+    this.httpClient.post(this.baseUrl + "/auth/confirmAccount", null, { params: { "token": token } }).subscribe({
       next: (resp) => {
-        this.router.navigate(["/login"])
+        this.router.navigate(["/auth/login"])
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.name + " " + err.message);
