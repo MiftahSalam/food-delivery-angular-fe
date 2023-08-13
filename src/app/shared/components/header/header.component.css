@@ -28,3 +28,7 @@ a:hover, a.active {
 .logout:hover, a:active {
     color: whitesmoke;
 }
+
+.dropdown-menu a:hover {
+    background-color: black;
+}
