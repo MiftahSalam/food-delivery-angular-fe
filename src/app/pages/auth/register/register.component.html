@@ -24,14 +24,14 @@
                     </div>
                     <div class="form-group">
                         <label for="password">Password</label>
-                        <input type="text" formControlName="password" id="password" class="form-control">
+                        <input type="password" formControlName="password" id="password" class="form-control">
                         <span *ngIf="!registerForm.get('password')?.valid && registerForm.get('password')?.touched"
                             class="help-block">Invalid password. Please try again (Note: password should have at least 6
                             character)</span>
                     </div>
                     <div class="form-group">
                         <label for="passwordRepeat">Repeat Password</label>
-                        <input type="text" formControlName="passwordRepeat" id="passwordRepeat" class="form-control">
+                        <input type="password" formControlName="passwordRepeat" id="passwordRepeat" class="form-control">
                         <span
                             *ngIf="!registerForm.get('passwordRepeat')?.valid && registerForm.get('passwordRepeat')?.touched"
                             class="help-block">Invalid password. Please try again (Note: password should have at least 6
