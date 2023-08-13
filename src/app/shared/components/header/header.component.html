@@ -70,13 +70,16 @@
                     </a>
                     <div class="dropdown-menu">
                         <a data-toggle="tooltip" data-placement="top" title="My order" class="dropdown-item nav-link"
-                            href="#" [routerLink]="['/orderCanceling']">My Orders
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" href="#"
+                            [routerLink]="['/order/orderCanceling']">My Orders
                         </a>
                         <a *ngIf="isAdmin()" data-toggle="tooltip" data-placement="top" title="All orders"
-                            class="dropdown-item nav-link" href="#" [routerLink]="['/admin/seeAllOrders']">All Orders
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            class="dropdown-item nav-link" href="#" [routerLink]="['/order/AllOrders']">All Orders
                         </a>
                         <a *ngIf="isChosen()" data-toggle="tooltip" data-placement="top" title="Today orders"
-                            class="dropdown-item nav-link" href="#" [routerLink]="['/todayOrders']">Today Orders
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                            class="dropdown-item nav-link" href="#" [routerLink]="['/order/todayOrders']">Today Orders
                         </a>
                     </div>
                 </li>

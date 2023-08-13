@@ -48,7 +48,7 @@ export class AuthService {
 
   isChosenOne() {
     if (this.isLoggedIn()) {
-      return this.currentUserSubject.value && this.currentUserSubject.value.role === "CHOSEN"
+      return this.currentUserSubject.value && this.currentUserSubject.value.role === "CHOOSEN"
     }
 
     return false
