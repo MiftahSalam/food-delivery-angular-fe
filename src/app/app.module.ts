@@ -14,7 +14,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { MaterialModule } from './material-module';
 import { HeaderComponent } from './shared/components/header/header.component';
 import { FilterPipe } from './core/pipe/filter.pipe';
@@ -22,6 +22,8 @@ import { HomeComponent } from './pages/home/home/home.component';
 import { ModalComponent } from './shared/components/modal/modal.component';
 import { RegisterComponent } from './pages/auth/register/register.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
+import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
+import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 
 const matSnackBarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top'
@@ -68,7 +70,18 @@ const matSnackBarDefaultConfig: MatSnackBarConfig = {
     {
       provide: MAT_SNACK_BAR_DEFAULT_OPTIONS,
       useValue: matSnackBarDefaultConfig
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: JwtInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: ErrorInterceptor,
+      multi: true
     }
+
   ],
   bootstrap: [AppComponent]
 })

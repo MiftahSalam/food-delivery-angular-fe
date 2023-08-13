@@ -24,9 +24,13 @@ export class DailyMenuService {
    * getDailyMenu
    */
   public getDailyMenu(): Observable<DailyMenu | null> {
-    this.httpClient.get(this.baseUrl).subscribe({
+    this.httpClient.get(
+      this.baseUrl, {
+      observe: 'response',
+      responseType: 'json'
+    }).subscribe({
       next: (resp) => {
-        const baseResponse = resp as BaseResponse<DailyMenu>
+        const baseResponse = resp.body as BaseResponse<DailyMenu>
 
         this.dataChangeMenu.next(baseResponse.data)
       },

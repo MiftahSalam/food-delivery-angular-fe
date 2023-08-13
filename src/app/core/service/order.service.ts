@@ -26,11 +26,21 @@ export class OrderService {
    * getOrders
    */
   public getOrders(forDay: string) {
-    this.httpClient.get(this.baseUrl + "/all", { params: { "forDay": forDay } }).subscribe({
+    this.httpClient.get(
+      this.baseUrl + "/all",
+      {
+        params: { "forDay": forDay },
+        observe: "response",
+        responseType: 'json'
+      }
+    ).subscribe({
       next: (resp) => {
-        const baseResponse = resp as BaseResponse<Order[]>
-
-        this.dataChange.next(baseResponse.data)
+        const baseResponse = resp.body as BaseResponse<Order[]>
+        if (baseResponse) {
+          this.dataChange.next(baseResponse.data)
+        } else {
+          this.dataChange.next([]);
+        }
       },
       error: (err: HttpErrorResponse) => {
         console.error(err.name + " " + err.message);
