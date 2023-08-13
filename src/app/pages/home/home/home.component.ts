@@ -159,7 +159,7 @@ export class HomeComponent implements OnInit {
   }
 
   menu() {
-    this.router.navigate(["addMenu"])
+    this.router.navigate(["/menu/addMenu"])
   }
 
   weeklyMenu() {

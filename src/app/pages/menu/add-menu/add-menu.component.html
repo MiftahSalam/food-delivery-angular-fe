@@ -1,1 +1,91 @@
-<p>add-menu works!</p>
+<br><br><br><br>
+<div class="container" style="overflow-x: auto;">
+    <div class="row">
+        <div class="col-4">
+            <img *ngIf="weeklyMenu && weeklyMenu.imagePath" [src]="weeklyMenu.imagePath" id="imageMenu" alt="Menu Image">
+        </div>
+
+        <div class="col-5">
+            <div class="card" style="min-width: max-content;">
+                <h4 class="card-header">Add a weekly menu</h4>
+                <br>
+                <div class="card-body justify-content-center">
+                    <form [formGroup]="form" (ngSubmit)="onSubmit()" #formControl="ngForm" enctype="multipart/form-data">
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <input 
+                                        formControlName="dateFrom" 
+                                        id="dateFrom" 
+                                        matInput 
+                                        [matDatepicker]="picker1" 
+                                        placeholder="Choose a date"
+                                        placeholder="Date from"
+                                        onkeydown="return false"
+                                        [min]="minDateOut"
+                                        >
+                                    <mat-datepicker-toggle matSuffix [for]="picker1">
+                                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <mat-form-field class="example-full-width">
+                                    <input 
+                                        formControlName="dateTo" 
+                                        id="dateTo" 
+                                        matInput 
+                                        [matDatepicker]="picker2" 
+                                        placeholder="Choose a date"
+                                        placeholder="Date to"
+                                        onkeydown="return false"
+                                        [min]="minDateOut"
+                                        >
+                                    <mat-datepicker-toggle matSuffix [for]="picker2">
+                                        <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                                    </mat-datepicker-toggle>
+                                    <mat-datepicker #picker2></mat-datepicker>
+                                </mat-form-field>
+                            </div>
+
+                        </div>
+
+                        <div class="form-row">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text" id="inputGroupFileAddon01">Select image</span>
+                                </div>
+                                <div class="custom-file">
+                                    <input 
+                                        type="file" 
+                                        class="custom-file-input" 
+                                        id="inputGroupFile01"
+                                        aria-describedby="inputGroupFileAddon01"
+                                        accept="image/*"
+                                        (change)="onSelectFile($event)"
+                                        >
+                                    <label for="inputGroupFile01" style="overflow: hidden;" class="custom-file-label text-left">
+                                        Choose menu
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <br><br>
+
+                        <button 
+                            type="submit" 
+                            class="btn btn-primary" 
+                            [disabled]="!form.valid || !weeklyMenu.imagePath"
+                            data-toggle="tooltip"
+                            data-placement="top"
+                            title="Add"
+                            >Add weekly menu</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

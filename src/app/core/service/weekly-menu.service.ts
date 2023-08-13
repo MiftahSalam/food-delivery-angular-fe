@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { WeeklyMenu } from '../model/weekly-menu';
 import { WeeklyMenuWithIds } from '../model/weekly-menu-with-ids';
 import { DailyMenu } from '../model/daily-menu';
 import { environment } from 'src/environments/environment';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BaseResponse } from '../model/response/base-response';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { BaseResponse } from '../model/response/base-response';
 })
 export class WeeklyMenuService {
   dataChange: BehaviorSubject<WeeklyMenu | null> = new BehaviorSubject<WeeklyMenu | null>(null)
-  dataChangeImage: BehaviorSubject<string | null> = new BehaviorSubject<string | null>(null)
+  dataChangeImage: BehaviorSubject<any> = new BehaviorSubject<any>(null)
   dataChanges: BehaviorSubject<WeeklyMenuWithIds[] | null> = new BehaviorSubject<WeeklyMenuWithIds[] | null>(null)
   dataChangesAll: BehaviorSubject<WeeklyMenuWithIds[] | null> = new BehaviorSubject<WeeklyMenuWithIds[] | null>(null)
   successEmitter = new Subject<DailyMenu>()
@@ -61,16 +61,19 @@ export class WeeklyMenuService {
    * addImage
    */
   public addImage(image: FormData): Observable<string | null> {
-    this.httpClient.post(this.baseUrl + "/files/WEEKLY-MENU", image).subscribe({
-      next: (resp) => {
-        const baseResponse = resp as BaseResponse<string>
-
-        this.dataChangeImage.next(baseResponse.data)
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err.name + " " + err.message);
-      }
-    })
+    this.httpClient.post(
+      this.baseUrl + "/files/WEEKLY-MENU",
+      image,
+      { responseType: 'blob' })
+      .subscribe({
+        next: (resp) => {
+          this.dataChangeImage.next(resp)
+        },
+        error: (err: HttpErrorResponse) => {
+          this.dataChangeImage.next(null)
+          console.error(err.name + " " + err.message);
+        }
+      })
 
     return this.dataChangeImage.asObservable()
   }
@@ -79,7 +82,29 @@ export class WeeklyMenuService {
    * addWeeklyMenu
    */
   public addWeeklyMenu(weeklyMenu: WeeklyMenu) {
-    this.httpClient.post(this.weeklyMenuUrl, weeklyMenu).subscribe()
+    return this.httpClient.post(
+      this.weeklyMenuUrl,
+      weeklyMenu,
+      {
+        observe: 'response', responseType: 'json'
+      }).pipe(
+        map(resp => {
+          const baseResponse = resp.body as BaseResponse<WeeklyMenuWithIds>
+          if (resp.status !== HttpStatusCode.Created && resp.status !== HttpStatusCode.Ok) {
+            if (baseResponse) {
+              throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+            } else {
+              throwError(() => new Error("Error occurred with error: " + resp.statusText))
+            }
+          }
+
+          return baseResponse.data
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log(err.message)
+          return throwError(() => new Error("Error occurred with error: " + err.error.message))
+        })
+      )
   }
 
   /**
