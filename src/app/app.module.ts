@@ -24,6 +24,7 @@ import { RegisterComponent } from './pages/auth/register/register.component';
 import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig, MatSnackBarModule } from '@angular/material/snack-bar';
 import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
+import { WeeklyMenuComponent } from './pages/menu/weekly-menu/weekly-menu.component';
 
 const matSnackBarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top'
@@ -37,6 +38,7 @@ const matSnackBarDefaultConfig: MatSnackBarConfig = {
     HomeComponent,
     ModalComponent,
     RegisterComponent,
+    WeeklyMenuComponent,
   ],
   imports: [
     BrowserModule,
