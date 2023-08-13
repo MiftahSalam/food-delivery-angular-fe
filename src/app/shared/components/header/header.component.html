@@ -7,64 +7,66 @@
 
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="nav mr-auto">
-                <li *ngIf="isLoggedIn()" role="presentation" >
+                <li *ngIf="isLoggedIn()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Home" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['']">Home</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" [routerLink]="['']">Home</a>
                 </li>
 
-                <li *ngIf="isLoggedIn() && isAdmin()" role="presentation" >
+                <li *ngIf="isLoggedIn() && isAdmin()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Update Type" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}" [routerLink]="['/meal/type']" href="#">Type Update</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/meal/type']" href="#">Type Update</a>
                 </li>
 
                 <li *ngIf="isAdmin()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Update meal" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/meal']">Meal Update</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/meal']">Meal Update</a>
                 </li>
 
-                <li *ngIf="!isAdmin() && isLoggedIn()" class="nav-item dropdown" role="presentation"
-                    >
+                <li *ngIf="!isAdmin() && isLoggedIn()" class="nav-item dropdown" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Weekly menu" class="nav-link"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/menu/weeklyMenu']">See menu</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/menu/weeklyMenu']">See menu</a>
                 </li>
 
-                <li *ngIf="!isAdmin() && !isChosen() && isLoggedIn()" class="nav-item dropdown" role="presentation"
-                    >
+                <li *ngIf="!isAdmin() && !isChosen() && isLoggedIn()" class="nav-item dropdown" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="My orders" class="nav-link"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/order/orderCanceling']">My orders</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/order/orderCanceling']">My orders</a>
                 </li>
 
-                <li *ngIf="isAdmin()" class="nav-item dropdown" role="presentation" >
+                <li *ngIf="isAdmin()" class="nav-item dropdown" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Users" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/user']">Users</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/user']">Users</a>
                 </li>
 
-                <li *ngIf="isAdmin()" class="nav-item dropdown" role="presentation" >
+                <li *ngIf="isAdmin()" class="nav-item dropdown" role="presentation">
                     <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  class="nav-link dropdown-toggle">Weekly Menu
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        class="nav-link dropdown-toggle">Weekly Menu
                     </a>
                     <div class="dropdown-menu">
                         <a data-toggle="tooltip" data-placement="top" title="Add menu" class="dropdown-item nav-link"
-                            href="#" [routerLink]="['/addMenu']">Add Menu
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" href="#"
+                            [routerLink]="['/menu/addMenu']">Add Menu
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Update menu" class="dropdown-item nav-link"
-                            href="#" [routerLink]="['/updateWeeklyMenu']">Update Menu
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" href="#"
+                            [routerLink]="['/menu/updateWeeklyMenu']">Update Menu
                         </a>
                         <a data-toggle="tooltip" data-placement="top" title="Weekly menu" class="dropdown-item nav-link"
-                            href="#" [routerLink]="['/weeklyMenu']">See Menu
+                            routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" href="#"
+                            [routerLink]="['/menu/weeklyMenu']">See Menu
                         </a>
                     </div>
                 </li>
 
-                <li *ngIf="isAdmin() || isChosen()" class="nav-item dropdown" role="presentation"
-                    >
+                <li *ngIf="isAdmin() || isChosen()" class="nav-item dropdown" role="presentation">
                     <a data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false"
-                    routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"  class="nav-link dropdown-toggle">Orders
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        class="nav-link dropdown-toggle">Orders
                     </a>
                     <div class="dropdown-menu">
                         <a data-toggle="tooltip" data-placement="top" title="My order" class="dropdown-item nav-link"
@@ -86,15 +88,15 @@
             </div>
 
             <ul class="nav">
-                <li *ngIf="!isLoggedIn()" role="presentation" >
+                <li *ngIf="!isLoggedIn()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Register" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/auth/register']">Register</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/auth/register']">Register</a>
                 </li>
-                <li *ngIf="!isLoggedIn()" role="presentation" >
+                <li *ngIf="!isLoggedIn()" role="presentation">
                     <a data-toggle="tooltip" data-placement="top" title="Login" class="nav-link"
-                    routerLinkActive="active"
-                    [routerLinkActiveOptions]="{exact: true}"  [routerLink]="['/auth/login']">Login</a>
+                        routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}"
+                        [routerLink]="['/auth/login']">Login</a>
                 </li>
                 <li *ngIf="isLoggedIn()" role="presentation" id="logedAs">
                     Logged in as&nbsp; <a [routerLink]="['/user/profile']">{{user.name}} {{user.lastName}} (Role: <span
