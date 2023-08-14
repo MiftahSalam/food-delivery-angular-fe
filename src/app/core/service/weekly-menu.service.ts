@@ -28,6 +28,7 @@ export class WeeklyMenuService {
     this.httpClient.get(this.weeklyMenuUrl).subscribe({
       next: (resp) => {
         const baseResponse = resp as BaseResponse<WeeklyMenu>
+        console.log(baseResponse.data.from);
 
         this.dataChange.next(baseResponse.data)
       },
@@ -61,21 +62,30 @@ export class WeeklyMenuService {
    * addImage
    */
   public addImage(image: FormData): Observable<string | null> {
-    this.httpClient.post(
+    return this.httpClient.post(
       this.baseUrl + "/files/WEEKLY-MENU",
       image,
-      { responseType: 'blob' })
-      .subscribe({
-        next: (resp) => {
-          this.dataChangeImage.next(resp)
-        },
-        error: (err: HttpErrorResponse) => {
-          this.dataChangeImage.next(null)
-          console.error(err.name + " " + err.message);
-        }
-      })
+      { observe: 'response', responseType: 'json' })
+      .pipe(
+        map(resp => {
+          const baseResponse = resp.body as BaseResponse<string>
+          if (resp.status !== HttpStatusCode.Ok) {
+            if (baseResponse) {
+              throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+            } else {
+              throwError(() => new Error("Error occurred with error: " + resp.statusText))
+            }
+          }
 
-    return this.dataChangeImage.asObservable()
+          this.dataChangeImage.next(baseResponse.data)
+          return baseResponse.data
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log(err.message)
+          this.dataChangeImage.next(null)
+          return throwError(() => new Error("Error occurred with error: " + err.error.message))
+        })
+      )
   }
 
   /**
