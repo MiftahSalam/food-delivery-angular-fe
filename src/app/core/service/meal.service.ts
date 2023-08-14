@@ -10,7 +10,7 @@ import { BaseResponse } from '../model/response/base-response';
 @Injectable({
   providedIn: 'root'
 })
-export class MealServiceService {
+export class MealService {
   baseUrl = environment.baseUrl + "/meals"
   dataChange = new BehaviorSubject<Meal[] | null>(null)
   successAddEmitter = new Subject<InsertMealDTO>()

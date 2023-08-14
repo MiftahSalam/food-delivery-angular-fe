@@ -9,7 +9,7 @@ import { UpdateWeeklyMenuComponent } from './update-weekly-menu/update-weekly-me
 const routes: Routes = [
   { path: 'weeklyMenu', component: WeeklyMenuComponent, canActivate: [authGuard] },
   { path: 'addMenu', component: AddMenuComponent, canActivate: [adminGuard] },
-  { path: 'updateWeeklyMenu', component: UpdateWeeklyMenuComponent, canActivate: [adminGuard] },
+  { path: 'updateWeeklyMenu/:id', component: UpdateWeeklyMenuComponent, canActivate: [adminGuard] },
 ]
 
 @NgModule({
