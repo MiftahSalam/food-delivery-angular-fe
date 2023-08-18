@@ -11,13 +11,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatTable, MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
+import { UpdateDailyMenuComponent } from './update-daily-menu/update-daily-menu.component';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 
 
 @NgModule({
   declarations: [
     AddMenuComponent,
-    UpdateWeeklyMenuComponent
+    UpdateWeeklyMenuComponent,
+    UpdateDailyMenuComponent
   ],
   imports: [
     CommonModule,
@@ -28,6 +31,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatIconModule,
     MatTableModule,
+    MatCheckboxModule,
     MatSortModule,
     MatDatepickerModule,
     MenuRoutingModule

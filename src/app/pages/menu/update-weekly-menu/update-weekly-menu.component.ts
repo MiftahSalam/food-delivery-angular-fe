@@ -97,7 +97,6 @@ export class UpdateWeeklyMenuComponent implements OnInit {
   }
 
   onChange(menu: any) {
-    // this.router.navigate(["/menu/updateWeeklyMenu", this.currentWeeklyMenu.id])
     console.log(menu);
     this.currentWeeklyMenu = menu
     this.getDailyMenus()
