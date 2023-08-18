@@ -1,6 +1,6 @@
 export interface WeeklyMenuWithIds {
     id: number;
-    dateFrom: Date;
-    dateTo: Date;
+    from: Date;
+    to: Date;
     imagePath: string;
 }

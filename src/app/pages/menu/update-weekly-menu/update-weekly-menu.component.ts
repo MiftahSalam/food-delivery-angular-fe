@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatTableDataSource } from '@angular/material/table';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
+import { isEmptyObject } from 'jquery';
 import { ToastrService } from 'ngx-toastr';
 import { Subscription } from 'rxjs';
 import { DailyMenu } from 'src/app/core/model/daily-menu';
@@ -18,7 +19,7 @@ import { WeeklyMenuService } from 'src/app/core/service/weekly-menu.service';
 export class UpdateWeeklyMenuComponent implements OnInit {
   currentWeeklyMenu = {} as WeeklyMenuWithIds
   weeklyMenus = [] as WeeklyMenuWithIds[]
-  dailyMenus = [] as DailyMenu[]
+  dailyMenus: Array<DailyMenu> = []
   errorMessage = ""
   success = ""
   search: Date | null = null
@@ -35,6 +36,7 @@ export class UpdateWeeklyMenuComponent implements OnInit {
     private dailyMenuService: DailyMenuService,
     private mealService: MealService,
     private route: ActivatedRoute,
+    private router: Router,
     private flashMessage: MatSnackBar,
     private toasterService: ToastrService
   ) {
@@ -74,7 +76,7 @@ export class UpdateWeeklyMenuComponent implements OnInit {
       }
     })
 
-    if (!this.currentWeeklyMenu) {
+    if (!this.currentWeeklyMenu || isEmptyObject(this.currentWeeklyMenu)) {
       this.currentWeeklyMenu = this.weeklyMenus[0]
     }
 
@@ -94,7 +96,10 @@ export class UpdateWeeklyMenuComponent implements OnInit {
     })
   }
 
-  onChange() {
+  onChange(menu: any) {
+    // this.router.navigate(["/menu/updateWeeklyMenu", this.currentWeeklyMenu.id])
+    console.log(menu);
+    this.currentWeeklyMenu = menu
     this.getDailyMenus()
   }
 

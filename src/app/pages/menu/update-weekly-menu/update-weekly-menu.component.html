@@ -12,12 +12,12 @@
                 <h4>Choose weekly menu &nbsp;</h4>
                 <select 
                     name="currentWeeklyMenu" 
-                    (ngModelChange)="onChange()"
+                    (ngModelChange)="onChange($event)"
                     data-size="13"
                     class="selectpicker"
                     [(ngModel)]="currentWeeklyMenu"
                     >
-                    <option *ngFor="let weeklyMenu of weeklyMenus; let i=index" [ngValue]="weeklyMenu">{{weeklyMenu.dateFrom | date: 'd/MM/y'}} - {{weeklyMenu.dateTo | date: 'd/MM/yy'}}</option>
+                    <option *ngFor="let weeklyMenu of weeklyMenus; let i=index" [ngValue]="weeklyMenu">{{weeklyMenu.from | date: 'd/MM/y'}} - {{weeklyMenu.to | date: 'd/MM/yy'}}</option>
                 </select>
             </div>
             <br>
@@ -41,7 +41,7 @@
                     </ng-container>
 
                     <ng-container matColumnDef="updateMenu">
-                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">update Menu</th>
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Update Menu</th>
                         <td mat-cell *matCellDef="let element">
                             <button 
                                 mat-button 

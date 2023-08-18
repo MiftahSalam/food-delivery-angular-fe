@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, catchError, map, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { DailyMenu } from '../model/daily-menu';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BaseResponse } from '../model/response/base-response';
 import { WeeklyMenuWithIds } from '../model/weekly-menu-with-ids';
 import { AddDailyMenuDTO } from '../model/dto/add-daily-menu-dto';
@@ -46,18 +46,29 @@ export class DailyMenuService {
    * getDailyMenus
    */
   public getDailyMenus(weeklyMenu: WeeklyMenuWithIds): Observable<DailyMenu[] | null> {
-    this.httpClient.get(this.baseUrl + `/all/${weeklyMenu.id}`).subscribe({
-      next: (resp) => {
-        const baseResponse = resp as BaseResponse<DailyMenu[]>
+    return this.httpClient.get(
+      this.baseUrl + `/all/${weeklyMenu.id}`,
+      { observe: 'response', responseType: 'json' }
+    )
+      .pipe(
+        map(resp => {
+          const baseResponse = resp.body as BaseResponse<DailyMenu[]>
+          if (resp.status !== HttpStatusCode.Created && resp.status !== HttpStatusCode.Ok) {
+            if (baseResponse) {
+              throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+            } else {
+              throwError(() => new Error("Error occurred with error: " + resp.statusText))
+            }
+          }
 
-        this.dataChangeDailyMenu.next(baseResponse.data)
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err.name + " " + err.message);
-      }
-    })
+          return baseResponse.data
+        }),
+        catchError((err: HttpErrorResponse) => {
+          console.log(err.message)
+          return throwError(() => new Error("Error occurred with error: " + err.error.message))
+        })
 
-    return this.dataChangeDailyMenu.asObservable()
+      )
   }
 
   /**
