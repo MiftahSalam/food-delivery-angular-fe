@@ -26,7 +26,7 @@ export class UpdateWeeklyMenuComponent implements OnInit {
   successSub = new Subscription
   currentDailyMenu = {} as DailyMenu
   weeklyMenuId = 0
-  dailyMenuDataSource = {} as MatTableDataSource<DailyMenu>
+  dailyMenuDataSource = new MatTableDataSource<DailyMenu>
   displayedColumns = ["date", "meals", "updateMenu"]
   expandedElement = {} as DailyMenu
   daily = {} as DailyMenu

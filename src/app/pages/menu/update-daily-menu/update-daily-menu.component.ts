@@ -25,7 +25,7 @@ export class UpdateDailyMenuComponent implements OnInit {
   meals = [] as Meal[]
   element = {} as HTMLSelectElement
   displayedColumns = ['select', 'types', 'name', 'description']
-  mealDataSource = {} as MatTableDataSource<Meal>
+  mealDataSource = new MatTableDataSource<Meal>
   selection = new SelectionModel<Meal>(true, [])
   closeButton = {} as HTMLButtonElement
   filterInput = {} as HTMLInputElement
