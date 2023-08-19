@@ -1,0 +1,64 @@
+<div class="modal fade center" id="addMeal" tabindex="-1" role="dialog" aria-labelledby="addMealLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content card-body">
+            <div class="modal-header">
+                <div *ngIf="typesEmpty" class="alert alert-danger">First you need to create type</div>
+                <h5 class="modal-title" *ngIf="!typesEmpty">Add new meal</h5>
+                <button *ngIf="!typesEmpty" id="closeButtonAddMeal" type="button" class="close" data-dismiss="modal"
+                    aria-label="Close" data-toggle="tooltip" data-placement="top" title="Close"><span
+                        aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body" *ngIf="!typesEmpty">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()" #dialogFormControl="ngForm">
+                    <div class="form-group row text-left">
+                        <label for="name" class="col-sm-3 col-from-label">Name</label>
+                        <div class="col-sm-9">
+                            <input type="text" class="form-control border margin" id="name" formControlName="name">
+                        </div>
+                    </div>
+                    <div class="form-group row text-left">
+                        <label for="description" class="col-sm-3 col-from-label">Description</label>
+                        <div class="col-sm-9">
+                            <textarea type="text" class="form-control border margin" id="description"
+                                formControlName="description"></textarea>
+                        </div>
+                    </div>
+                    <div class="form-group row text-left">
+                        <label for="earlyOrder" class="col-sm-3 col-from-label">Early order</label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" class="form-check-input border margin margin-checkbox"
+                                id="earlyOrder" formControlName="earlyOrder">
+                        </div>
+                    </div>
+                    <div class="form-group row text-left">
+                        <label for="types" class="col-sm-3 col-from-label">Type</label>
+                        <div class="col-sm-9">
+                            <select name="nameType" [(ngModel)]="currentType"
+                                class="selectpicker border margin form-control" (ngModelChange)="onChange(currentType)"
+                                formControlName="nameType" required>
+                                <option *ngFor="let type of types" [ngValue]="type">{{ type.name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div *ngIf="showPrice" class="form-group row text-left">
+                        <label for="price" class="col-sm-3 col-from-label">Price</label>
+                        <div class="col-sm-9">
+                            <input type="number" class="form-check-input border margin"
+                                id="price" formControlName="price">
+                        </div>
+                    </div>
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        [disabled]="!dialogFormControl.valid"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Add meal"
+                    ></button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

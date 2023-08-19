@@ -12,6 +12,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { AddTypeComponent } from './component/add-type/add-type.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateTypeComponent } from './component/update-type/update-type.component';
+import { AddMealComponent } from './component/add-meal/add-meal.component';
 
 
 
@@ -20,7 +21,8 @@ import { UpdateTypeComponent } from './component/update-type/update-type.compone
     TypesComponent,
     MealComponent,
     AddTypeComponent,
-    UpdateTypeComponent
+    UpdateTypeComponent,
+    AddMealComponent
   ],
   imports: [
     CommonModule,
