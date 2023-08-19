@@ -55,7 +55,7 @@ export class TypesComponent implements OnInit {
   }
 
   applyFilter(filterValue: any) {
-    this.dataSource.filter = filterValue.trim().toLowerCase()
+    this.dataSource.filter = filterValue.target.value.trim().toLowerCase()
   }
 
   giveFocus() {

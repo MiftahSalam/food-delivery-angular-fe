@@ -62,7 +62,7 @@ export class AddTypeComponent implements OnInit {
         this.toastrService.error(this.errorMessage, "Add type")
         return err
       })
-    )
+    ).subscribe()
   }
 
 }
