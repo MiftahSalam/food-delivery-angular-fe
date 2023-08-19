@@ -28,7 +28,7 @@ export class UpdateTypeComponent implements OnInit {
     this.form = new FormGroup({
       name: new FormControl('', Validators.required),
       price: new FormControl('', [Validators.required, Validators.min(1)]),
-      regular: new FormControl('', Validators.nullValidator),
+      regular: new FormControl(false, Validators.nullValidator),
     })
   }
 
@@ -49,6 +49,7 @@ export class UpdateTypeComponent implements OnInit {
     }
 
     const type = {
+      id: this.type.id,
       name: this.form.value.name,
       price: this.form.value.price,
       reguler: this.form.value.regular,
@@ -65,7 +66,7 @@ export class UpdateTypeComponent implements OnInit {
         this.toastrService.error(this.errorMessage, "Update type")
         return err
       })
-    )
+    ).subscribe()
   }
 
 }
