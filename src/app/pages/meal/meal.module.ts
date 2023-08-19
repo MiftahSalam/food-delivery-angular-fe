@@ -9,16 +9,23 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
+import { AddTypeComponent } from './component/add-type/add-type.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { UpdateTypeComponent } from './component/update-type/update-type.component';
 
 
 
 @NgModule({
   declarations: [
     TypesComponent,
-    MealComponent
+    MealComponent,
+    AddTypeComponent,
+    UpdateTypeComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
+    FormsModule,
     MatFormFieldModule,
     MatInputModule,
     MatIconModule,
