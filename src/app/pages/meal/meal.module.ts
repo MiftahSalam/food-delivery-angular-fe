@@ -13,6 +13,7 @@ import { AddTypeComponent } from './component/add-type/add-type.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { UpdateTypeComponent } from './component/update-type/update-type.component';
 import { AddMealComponent } from './component/add-meal/add-meal.component';
+import { UpdateMealComponent } from './component/update-meal/update-meal.component';
 
 
 
@@ -22,7 +23,8 @@ import { AddMealComponent } from './component/add-meal/add-meal.component';
     MealComponent,
     AddTypeComponent,
     UpdateTypeComponent,
-    AddMealComponent
+    AddMealComponent,
+    UpdateMealComponent
   ],
   imports: [
     CommonModule,
