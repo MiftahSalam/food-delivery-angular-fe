@@ -1,1 +1,68 @@
-<p>users works!</p>
+<div class="container" *ngIf="isDataAvailable">
+    <div class="card text-center">
+        <h4 class="card-header">List of users</h4>
+        <div class="card-body">
+            <div *ngIf="users.length == 0" class="alert alert-danger">List of users is empty</div>
+            <div class="row">
+                <div class="filter-user">
+                    <mat-form-field>
+                        <mat-label>Search</mat-label>
+                        <input 
+                            matInput 
+                            (keyup)="appyFilter($event.target)"
+                            placeholder="By name, last name, or email"
+                            id="user-filter"
+                            >
+                        <button matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="row justify-content-center scrollit">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8 table-user" matSort>
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">First Name</th>
+                        <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="lastname">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Last Name</th>
+                        <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="email">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Email</th>
+                        <td mat-cell *matCellDef="let element">{{ element.email }}</td>
+                    </ng-container>
+                    <ng-container matColumnDef="status">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Status</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div *ngIf="element.role === 'CHOOSEN'">
+                                <button mat-button class="btn btn-success" matTooltip="Chosen one cannot be banned" disabled>BAN</button>
+                            </div>
+                            <div *ngIf="element.role !== 'CHOOSEN'">
+                                <div [ngSwitch]="element.status">
+                                    <div *ngSwitchCase="1"><button mat-button class="btn btn-danger" (click)="updateStatus(element)">Ban user</button></div>
+                                    <div *ngSwitchCase="3"><button mat-button class="btn btn-secondary" (click)="updateStatus(element)">Unban user</button></div>
+                                    <div *ngSwitchDefault><button mat-button class="btn btn-secondary">No action (TBD)</button></div>
+                                </div>
+                            </div>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="role">
+                        <th mat-header-cell *matHeaderCellDef mat-sort-header="">Role</th>
+                        <td mat-cell *matCellDef="let element">
+                            <div [ngSwitch]="element.role">
+                                <div *ngSwitchCase="'ADMIN'"><button mat-button class="btn btn-danger" (click)="updateRole(element)">Demote to user</button></div>
+                                <div *ngSwitchCase="'USER'"><button mat-button class="btn btn-success" (click)="updateRole(element)">Promote to admin</button></div>
+                                <div *ngSwitchCase="'CHOOSEN'"><button mat-button class="btn btn-success" matTooltip="Chosen can not be promoted">Promote to admin</button></div>
+                                <div *ngSwitchDefault><button mat-button class="btn btn-secondary">No action (TBD)</button></div>
+                            </div>
+                    </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

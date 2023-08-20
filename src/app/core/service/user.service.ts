@@ -50,6 +50,23 @@ export class UserService {
   }
 
   /**
+   * updateUserStatus
+   */
+  public updateUserStatus(userId: number, cmd: string) {
+    this.httpClient.put(this.baseUserUrl + `/${userId}/status/${cmd}`, null).subscribe({
+      next: (resp) => {
+        const baseResponse = resp as BaseResponse<UserDTO>
+        console.log("UserService-updateUserStatus baseResponse " + baseResponse)
+      }, error: (err) => {
+        console.error("UserService-updateUserStatus error: " + err)
+      }
+      , complete: () => {
+        console.info("UserService-updateUserStatus complete")
+      }
+    })
+  }
+
+  /**
    * updateUserEmail
    */
   public updateUserEmail(id: number, email: string) {
