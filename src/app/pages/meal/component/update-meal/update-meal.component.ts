@@ -54,17 +54,16 @@ export class UpdateMealComponent implements OnInit {
       earlyOrder: this.form.value.earlyOrder,
     } as Meal
 
-    this.mealService.updateMeal(updateMeal).pipe(
-      tap(data => {
+    this.mealService.updateMeal(updateMeal).subscribe({
+      next: (data) => {
         this.mealService.successUpdateEmitter.next(updateMeal)
         this.closeButton = document.getElementById("closeButtonUpdateMeal") as HTMLButtonElement
         this.closeButton.click()
-      }),
-      catchError(err => {
+      },
+      error: (err) => {
         this.errorMessage = "An error occured while updating meal"
         this.toastr.error(this.errorMessage, "Update meal")
-        return err
-      })
-    )
+      }
+    })
   }
 }

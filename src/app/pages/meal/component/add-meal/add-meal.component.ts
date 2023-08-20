@@ -85,21 +85,21 @@ export class AddMealComponent implements OnInit {
       insertMeal.types = [this.currentType]
     }
 
-    this.mealService.addMeal(insertMeal).pipe(
-      tap(data => {
+    this.mealService.addMeal(insertMeal).subscribe({
+      next: (data) => {
         this.form.reset()
         this.showPrice = false
         this.isRegular = true
         this.mealService.successAddEmitter.next(insertMeal)
         this.closeButton = document.getElementById("closeButtonAddMeal") as HTMLButtonElement
         this.closeButton.click()
-      }),
-      catchError(err => {
+
+      },
+      error: (err) => {
         this.errorMessage = "An error occured while creating meal"
         this.toastrService.error(this.errorMessage, "Add meal")
-        return err
-      })
-    ).subscribe()
+      }
+    })
   }
 
   getTypes() {
