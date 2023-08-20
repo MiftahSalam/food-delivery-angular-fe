@@ -102,9 +102,10 @@ export class UpdateWeeklyMenuComponent implements OnInit {
     this.getDailyMenus()
   }
 
-  updateDailyMenu(dailyMenu: DailyMenu) {
+  updateDailyMenu(dailyMenu: any) {
     if (dailyMenu) {
-      this.currentDailyMenu = dailyMenu
+      this.currentDailyMenu = dailyMenu as DailyMenu
+      this.currentDailyMenu.dailyMenuID = dailyMenu.id
       localStorage.setItem('currentWeeklyMenu', JSON.stringify(this.currentWeeklyMenu))
       this.weeklyMenuService.successEmitter.next(this.currentDailyMenu)
     }

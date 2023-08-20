@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatButtonModule } from '@angular/material/button';
 import { UpdateDailyMenuComponent } from './update-daily-menu/update-daily-menu.component';
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MealModule } from '../meal/meal.module';
 
 
 
@@ -34,7 +35,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     MatCheckboxModule,
     MatSortModule,
     MatDatepickerModule,
-    MenuRoutingModule
+    MenuRoutingModule,
+    MealModule,
   ]
 })
 export class MenuModule { }

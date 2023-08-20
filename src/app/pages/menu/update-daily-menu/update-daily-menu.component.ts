@@ -72,7 +72,7 @@ export class UpdateDailyMenuComponent implements OnInit {
       return
     }
 
-    if (!this.dailyMenu || this.dailyMenu.idailyMenuID == 0) {
+    if (!this.dailyMenu || this.dailyMenu.dailyMenuID == 0) {
       this.errorMessage = "This daily menu doesn't exist"
       this.toastrService.error(this.errorMessage, "Update Daily Menu")
       this.closeButton = document.getElementById("closeButton") as HTMLButtonElement
@@ -98,8 +98,8 @@ export class UpdateDailyMenuComponent implements OnInit {
 
   }
 
-  applyFilter(filterValue: any) {
-    this.mealDataSource.filter = filterValue.trim().toLowerCase()
+  applyFilter(target: any) {
+    this.mealDataSource.filter = target.value.trim().toLowerCase()
   }
   checkBoxLabel(row?: Meal) {
     if (!row) {

@@ -2,7 +2,7 @@ import { Meal } from "./meal";
 import { WeeklyMenu } from "./weekly-menu";
 
 export interface DailyMenu {
-    idailyMenuID: number;
+    dailyMenuID: number;
     date: Date;
     meals: Meal[];
     weeklyMenu: WeeklyMenu;

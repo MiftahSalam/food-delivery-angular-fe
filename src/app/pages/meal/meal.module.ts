@@ -37,6 +37,9 @@ import { UpdateMealComponent } from './component/update-meal/update-meal.compone
     MatTableModule,
     MatSortModule,
     MealRoutingModule
+  ],
+  exports: [
+    AddMealComponent
   ]
 })
 export class MealModule { }

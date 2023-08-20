@@ -37,8 +37,8 @@
                                     <div class="col filter-meals text-left">
                                         <mat-form-field>
                                             <mat-label>Search</mat-label>
-                                            <input matInput (keyup)="applyFilter($event)" placeholder="By name of category" id="filterInput">
-                                            <button mat-button matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
+                                            <input matInput (keyup)="applyFilter($event.target)" placeholder="By name of category" id="filterInput">
+                                            <button matPrefix mat-icon-button><mat-icon>search</mat-icon></button>
                                         </mat-form-field>
                                     </div>
                                     <div class="col text-right">
@@ -119,4 +119,4 @@
     </div>
 </div>
 
-<!-- <app-add-meal></app-add-meal> -->
+<app-add-meal></app-add-meal>
