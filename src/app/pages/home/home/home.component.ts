@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
   ) {
 
   }
-  onChanges(event: { target: HTMLInputElement; }): void {
+  onChanges(event: Event): void {
     let count = 0
     this.isEnabled = false
     for (let index = 0; index < this.quantity.length; index++) {

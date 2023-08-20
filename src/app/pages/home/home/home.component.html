@@ -18,8 +18,8 @@
                                         <div class="col-7"><span style="width: 100%;" class="badge badge-info">{{
                                                 type1.name }}</span></div>
                                         <div class="col-2"><span class="badge badge-dark">{{ type1.price }}</span></div>
-                                        <div class="col-3"><input type="number" min="0" value="0" class="quantity">
-                                        </div> <!-- todo on change handle-->
+                                        <div class="col-3"><input type="number" min="0" value="0" class="quantity" (change)="onChanges($event)">
+                                        </div>
                                     </div>
                                 </div>
                                 <span *ngIf="meal.earlyOrder" class="badge badge-warning">Early Order</span>
