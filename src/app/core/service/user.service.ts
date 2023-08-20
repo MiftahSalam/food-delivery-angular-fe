@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, catchError, map, of, throwError } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { UserDTO } from '../model/dto/user-dto';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
 import { BaseResponse } from '../model/response/base-response';
 
 @Injectable({
@@ -70,14 +70,53 @@ export class UserService {
    * updateUserEmail
    */
   public updateUserEmail(id: number, email: string) {
-    return this.httpClient.put(this.baseUserUrl + `/${id}`, email)
+    return this.httpClient.put(
+      this.baseUserUrl + `/${id}`,
+      email,
+      { observe: 'response', responseType: 'text' }
+    ).pipe(
+      map(resp => {
+        if (resp.status !== HttpStatusCode.Ok) {
+          throwError(() => new Error("Error occurred with error: " + resp.statusText))
+        }
+
+        return resp.body as string
+      }),
+      catchError((err: HttpErrorResponse) => {
+        console.log(err.message)
+        this.dataChangeImage.next(null)
+        return throwError(() => new Error("Error occurred with error: " + err.error.message))
+      })
+    )
   }
 
   /**
    * updateUserImage
    */
   public updateUserImage(id: number, imagePath: string) {
-    return this.httpClient.put(this.baseUserUrl + `/${id}/image`, imagePath)
+    return this.httpClient.put(
+      this.baseUserUrl + `/${id}/image`,
+      imagePath,
+      { observe: 'response', responseType: 'json' }
+    ).pipe(
+      map(resp => {
+        const baseResponse = resp.body as BaseResponse<string>
+        if (resp.status !== HttpStatusCode.Ok) {
+          if (baseResponse) {
+            throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+          } else {
+            throwError(() => new Error("Error occurred with error: " + resp.statusText))
+          }
+        }
+
+        return baseResponse.data
+      }),
+      catchError((err: HttpErrorResponse) => {
+        console.log(err.message)
+        this.dataChangeImage.next(null)
+        return throwError(() => new Error("Error occurred with error: " + err.error.message))
+      })
+    )
   }
 
   /**

@@ -1,0 +1,55 @@
+<br><br>
+<div *ngIf="user.id" class="container">
+    <div class="card">
+        <h4 class="card-header">{{ user.name }} {{ user.lastName }}</h4>
+        <div class="card-body">
+            <img *ngIf="user.imagePath" [src]="user.imagePath" alt="Profile picture" width="80px" height="80px">
+            <img *ngIf="!user.imagePath" src="assets/profile.jpg" alt="Profile picture" width="80px" height="80px">
+            <br>
+            <br>
+            <div class="row justify-content-center">
+                <div class="col-sm-4 col-sm-offset-4">
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupFileAddon01">Update image</span>
+                        </div>
+                        <div class="custom-file">
+                            <input 
+                                type="file" 
+                                class="custom-file-input" 
+                                id="inputGroupFile01"
+                                aria-describedby="inputGroupFileAddon01"
+                                accept="image/*"
+                                (change)="onSelectFile($event)">
+                            <label style="overflow: hidden;" class="custom-file-label text-left" for="inputGroupFile01">Choose image</label>
+                            <br><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row justify-content-center">
+                <form (ngSubmit)="onSubmit()" [formGroup]="form">
+                    <div class="form-group"><br>
+                        <label for="email">Email</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="user.email" 
+                            (ngModelChange)="emailChange($event)" 
+                            formControlName="email" 
+                            class="form-control"
+                        >
+                    </div>
+                    <button 
+                        type="submit" 
+                        [disabled]="!form.valid || !isEnabled"
+                        class="btn btn-primary"
+                        data-toggle="tooltip"
+                        data-placement="top"
+                        title="Update email"
+                    >Update</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

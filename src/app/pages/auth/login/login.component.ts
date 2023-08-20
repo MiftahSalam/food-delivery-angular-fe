@@ -67,14 +67,12 @@ export class LoginComponent implements OnInit {
       },
       error: (err: HttpErrorResponse) => {
         this.error = "Please verify your account or check again email and password"
-        this.toastrService.error(this.error, "Login")
+        this.toastrService.error(err.message, "Login")
 
         this.loading = false
-        // this.submitted = false
       },
       complete: () => {
         this.loading = false
-        // this.submitted = false
       }
     })
   }

@@ -59,19 +59,34 @@ export class AuthService {
       this.baseUrl + "/auth/login",
       { email, password },
       { observe: 'response', responseType: 'json' }
-    ).pipe(map(resp => {
-      const baseResponse = resp.body as BaseResponse<User>
-      if (baseResponse.data == null) {
-        localStorage.removeItem('currentUser')
-        return null
-      }
+    ).pipe(
+      map(resp => {
+        const baseResponse = resp.body as BaseResponse<User>
+        if (resp.status !== HttpStatusCode.Created && resp.status !== HttpStatusCode.Ok) {
+          if (baseResponse) {
+            throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+          } else {
+            throwError(() => new Error("Error occurred with error: " + resp.statusText))
+          }
+        }
 
-      const user = baseResponse.data as User
-      localStorage.setItem('currentUser', JSON.stringify(user))
-      this.currentUserSubject.next(user)
+        if (baseResponse.data == null) {
+          localStorage.removeItem('currentUser')
+          return null
+        }
 
-      return user
-    }))
+        const user = baseResponse.data as User
+        localStorage.setItem('currentUser', JSON.stringify(user))
+        this.currentUserSubject.next(user)
+
+        return user
+      }),
+      catchError((err: HttpErrorResponse) => {
+        console.log(err.message)
+        return throwError(() => new Error(err.message))
+      })
+
+    )
   }
 
   resetPassword(email: string) {
