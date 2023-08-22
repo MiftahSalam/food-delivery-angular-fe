@@ -3,7 +3,7 @@ import { Type } from "./type";
 import { User } from "./user";
 
 export interface Order {
-    userOrderId: number;
+    id: number;
     meal: Meal
     type: Type
     user: User

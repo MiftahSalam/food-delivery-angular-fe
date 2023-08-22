@@ -4,6 +4,8 @@ import { OrderCancelComponent } from './order-cancel/order-cancel.component';
 import { OrderRoutingModule } from './order-routing.module';
 import { AllOrderComponent } from './all-order/all-order.component';
 import { TodayOrderComponent } from './today-order/today-order.component';
+import { MatTableModule } from '@angular/material/table';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 
 
@@ -11,11 +13,13 @@ import { TodayOrderComponent } from './today-order/today-order.component';
   declarations: [
     OrderCancelComponent,
     AllOrderComponent,
-    TodayOrderComponent
+    TodayOrderComponent,
   ],
   imports: [
     CommonModule,
-    OrderRoutingModule
-  ]
+    MatTableModule,
+    OrderRoutingModule,
+    SharedModule,
+  ],
 })
 export class OrderModule { }
