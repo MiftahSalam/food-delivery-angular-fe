@@ -25,6 +25,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS, MatSnackBarConfig, MatSnackBarModule } f
 import { JwtInterceptor } from './core/interceptor/jwt.interceptor';
 import { ErrorInterceptor } from './core/interceptor/error.interceptor';
 import { WeeklyMenuComponent } from './pages/menu/weekly-menu/weekly-menu.component';
+import { SharedModule } from './shared/shared.module';
 
 const matSnackBarDefaultConfig: MatSnackBarConfig = {
   verticalPosition: 'top'
@@ -33,10 +34,8 @@ const matSnackBarDefaultConfig: MatSnackBarConfig = {
 @NgModule({
   declarations: [
     AppComponent,
-    HeaderComponent,
     FilterPipe,
     HomeComponent,
-    ModalComponent,
     RegisterComponent,
     WeeklyMenuComponent,
   ],
@@ -66,7 +65,8 @@ const matSnackBarDefaultConfig: MatSnackBarConfig = {
     MatSnackBarModule,
     HttpClientModule,
     FormsModule,
-    MaterialModule
+    MaterialModule,
+    SharedModule,
   ],
   providers: [
     {
