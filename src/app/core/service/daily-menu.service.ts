@@ -24,22 +24,27 @@ export class DailyMenuService {
    * getDailyMenu
    */
   public getDailyMenu(): Observable<DailyMenu | null> {
-    this.httpClient.get(
+    return this.httpClient.get(
       this.baseUrl, {
       observe: 'response',
       responseType: 'json'
-    }).subscribe({
-      next: (resp) => {
+    }).pipe(
+      map(resp => {
         const baseResponse = resp.body as BaseResponse<DailyMenu>
+        if (resp.status !== HttpStatusCode.Ok) {
+          if (baseResponse) {
+            throwError(() => new Error("Error occurred with error: " + baseResponse.message))
+          } else {
+            throwError(() => new Error("Error occurred with error: " + resp.statusText))
+          }
+        }
 
-        this.dataChangeMenu.next(baseResponse.data)
-      },
-      error: (err: HttpErrorResponse) => {
-        console.error(err.name + " " + err.message);
-      }
-    })
-
-    return this.dataChangeMenu.asObservable()
+        return baseResponse.data
+      }),
+      catchError((err: HttpErrorResponse) => {
+        return throwError(() => new Error(err.message))
+      })
+    )
   }
 
   /**
